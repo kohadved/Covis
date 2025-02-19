@@ -424,7 +424,7 @@ export default function Home() {
 
   /* ----- Initialize People on a Route ----- */
   useEffect(() => {
-    const totalPeople = 200; // denser simulation
+    const totalPeople = 300; // denser simulation
     const newPeople = [];
     for (let i = 0; i < totalPeople; i++) {
       const routeIndex = Math.floor(Math.random() * streetRoutes.length);
@@ -437,7 +437,7 @@ export default function Home() {
         routeIndex,
         progress,
         speed,
-        infected: Math.random() < 0.1, // 10% chance to be infected
+        infected: Math.random() < 0.3, // 10% chance to be infected
         locked: false,
         position,
       });
@@ -454,13 +454,16 @@ export default function Home() {
           let newProgress = person.progress + person.speed;
           let newSpeed = person.speed;
           // Bounce off ends of the route.
+          // if (newProgress >= 1) {
+          //   newProgress = 1;
+          //   newSpeed = -person.speed;
+          // } else if (newProgress <= 0) {
+          //   newProgress = 0;
+          //   newSpeed = -person.speed;
+          // }
           if (newProgress >= 1) {
-            newProgress = 1;
-            newSpeed = -person.speed;
-          } else if (newProgress <= 0) {
-            newProgress = 0;
-            newSpeed = -person.speed;
-          }
+            newProgress = 0; // Restart at the beginning of the route
+        } 
           const route = streetRoutes[person.routeIndex];
           const newPosition = getPositionAlongRoute(route.path, newProgress);
           // Check against each lockdown area.
@@ -486,7 +489,7 @@ export default function Home() {
           };
         })
       );
-    }, 50);
+    }, 45);
     return () => clearInterval(interval);
   }, []);
 

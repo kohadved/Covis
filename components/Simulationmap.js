@@ -41,7 +41,7 @@ const SimulationMap = ({
         <CircleMarker
           key={person.id}
           center={person.position}
-          radius={3}
+          radius={7}
           pathOptions={{ color: person.infected ? 'red' : 'green' }}
         />
       ))}
