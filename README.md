@@ -12,3 +12,4 @@ npm install
 npm run dev
 ```
 ### The project will run at http://localhost:3000 by default. 
+
